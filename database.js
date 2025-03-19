@@ -4,13 +4,14 @@
  */
 
 // importação do mongoose
+// Não esquecer de instalar o módulo (npm i mogoose)
 const mongoose = require('mongoose')
 
 // configuração do banco de dados
 // ip/link do servidor, autenticação 
 // ao final da url definir o nome do banco de dados
 // exemplo: /dbnotes
-const url = 'mongodb+srv://admin:123Senac@cluster0.tvons.mongodb.net/'
+const url = 'mongodb+srv://admin:123Senac@cluster0.tvons.mongodb.net/dbnotes'
 
 // validação (evitar a abertura de várias conexões)
 let conectado = false
@@ -39,7 +40,7 @@ const conectar = async () => {
 
 // método para desconectar do banco de dados
 const desconectar = async () => {
-    // se estiver conectado
+    // se estiver conectado/ (conectado = true)
     if (conectado) {
         // desconectar
         try {
