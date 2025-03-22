@@ -1,2 +1,2 @@
-# stickynotes
-Projeto de notas autoadesivas (estilo post-it) usando o framework Electron e o bando de dados MongoDB.
+# Projeto-Parte-1
+Desenvolvimento de um cadastro de clientes usando Electron e MongoDB Atlas

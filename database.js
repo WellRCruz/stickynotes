@@ -4,14 +4,14 @@
  */
 
 // importação do mongoose
-// Não esquecer de instalar o módulo (npm i mogoose)
+// Não esquecer de instalar o módulo (npm i mongoose)
 const mongoose = require('mongoose')
 
 // configuração do banco de dados
 // ip/link do servidor, autenticação 
 // ao final da url definir o nome do banco de dados
 // exemplo: /dbnotes
-const url = 'mongodb+srv://admin:123Senac@cluster0.tvons.mongodb.net/dbnotes'
+const url = 'https://github.com/WellRCruz/Projeto-Parte-1.git'
 
 // validação (evitar a abertura de várias conexões)
 let conectado = false
@@ -25,30 +25,27 @@ const conectar = async () => {
             await mongoose.connect(url) //conectar
             conectado = true //setar a variável
             console.log("MongoDB conectado")
+            return true //verificação para o main
         } catch (error) {
-            //tratamento de exceções especificas
-            if(error.code = 110000) {
-                console.log(`Erro: O CPF ${cpfCli} já está cadastrado `)
-            }else {
-             console.log(error)
-
-            }
-           
+            console.log(error)
+            return false           
         }
     }
 }
 
 // método para desconectar do banco de dados
 const desconectar = async () => {
-    // se estiver conectado/ (conectado = true)
+    // se estiver conectado
     if (conectado) {
         // desconectar
         try {
             await mongoose.disconnect(url) //desconectar
             conectado = false //setar a variável
             console.log("MongoDB desconectado")
+            return true
         } catch (error) {
             console.log(error)
+            return false
         }
     }
 }

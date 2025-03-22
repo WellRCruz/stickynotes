@@ -1,12 +1,7 @@
 {
-  "dependencies": {
-    "electron": "^35.0.2",
-    "mogoose": "^0.0.1-security",
-    "mongoose": "^8.12.1"
-  },
   "name": "stickynotes",
   "version": "1.0.0",
-  "description": "Projeto de notas autoadesivas (estilo post-it) usando o framework Electron e o bando de dados MongoDB.",
+  "description": "Projeto de notas autoadesivas (estilo post-it) usando o framewrok Electron e o banco de dados MongoDB",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -14,12 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WellRCruz/stickynotes.git"
+    "url": "git+https://github.com/WellRCruz/Projeto-Parte-1.git"
   },
   "author": "Wellington R. Cruz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/WellRCruz/stickynotes/issues"
+    "url": "https://github.com/WellRCruz/Projeto-Parte-1/issues"
   },
-  "homepage": "https://github.com/WellRCruz/stickynotes#readme"
+  "homepage": "https://github.com/WellRCruz/Projeto-Parte-1#readme",
+  "devDependencies": {
+    "electron": "^34.3.0"
+  }
 }
