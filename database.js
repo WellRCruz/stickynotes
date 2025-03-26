@@ -11,7 +11,7 @@ const mongoose = require('mongoose')
 // ip/link do servidor, autenticação 
 // ao final da url definir o nome do banco de dados
 // exemplo: /dbnotes
-const url = 'https://github.com/WellRCruz/Projeto-Parte-1.git'
+const url = 'mongodb+srv://admin:123%40senac@cluster0.tvons.mongodb.net/teste'
 
 // validação (evitar a abertura de várias conexões)
 let conectado = false

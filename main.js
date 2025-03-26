@@ -13,7 +13,11 @@ const { app, BrowserWindow, nativeTheme, Menu, shell, ipcMain } = require('elect
 const path = require('node:path')
 
 // Importação dos métodos conectar e desconectar (módulo de conexão)
-const { conectar, desconectar } = require('./database.js')
+const { conectar, desconectar } = require('./database.js') 
+
+// Importação do modelo de dados (Notes.js)
+const noteModel = require('./src/models/Notes.js')
+const { networkInterfaces } = require('node:os')
 
 // Janela principal
 let win
@@ -88,8 +92,8 @@ function noteWindow() {
       width: 400,
       height: 270,
       autoHideMenuBar: true,
-      resizable: false,
-      minimizable: false,
+      //resizable: false,
+      //minimizable: false,
       // estabelecer uma relação hierárquica entre janelas
       parent: mainWindow,
       // criar uma janela modal (só retorna a principal quando encerrada)
@@ -209,3 +213,23 @@ const template = [
     ]
   }
 ]
+
+// ===============================================
+// ================ CRUD CREATE ==================
+
+// Recebimento do objeto que contem os dados da nota
+ipcMain.on('create-note', async (event, stickyNote) => {
+  // IMPORTANTE ! Teste de recebimento do objeto - Passo 2
+  console.log(stickyNote)
+  // Criar uma nova estrutra de dados para salvar no banco
+  // Atenção! Os atributos da estrutura precisam ser idênticos ao modelo e os valores são obtidos através do objeto stickyNote
+  const newNote = noteModel ({
+    texto: stickyNote.textNote,
+    cor: stickyNote.colorNote
+  })
+  // Salvar a nota no banco de dados (Passo 3: fluxo)
+  newNote.save()
+})
+
+// ============== FIM CRUD CREATE ================
+// ===============================================
