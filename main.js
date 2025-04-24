@@ -260,5 +260,14 @@ ipcMain.on('list-notes', async (event) => {
   }
 })
 
-// == Fim - CRUD Read ==============================
-// =================================================
+// Atualização das notas na janela principal
+  ipcMain.on('update-list', () => {
+    // validação (se a janela principal existir e não estiver sido encerrada)
+    if (win && !win.isDestroyed()) {
+      // enviar ao renderer.js um pedido para recarregar a página 
+      win.webContents.send('main-reload')
+    }
+  })
+
+// ================= Fim - CRUD Read ====================
+// ======================================================

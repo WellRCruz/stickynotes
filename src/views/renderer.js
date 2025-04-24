@@ -39,8 +39,11 @@ api.dbStatus((event, message) => {
     }
 })
 
+// Enviar ao main um pedido para conectar com o banco de dados, quando a janela principal for inicializada
+api.dbConect()
+
 // =============================================================
-// == CRUD Read ================================================
+// ====================== CRUD Read ============================
 
 // Passo 1: Enviar ao main um pedido para listar as notas
 api.listNotes()
@@ -68,3 +71,12 @@ api.renderNotes((event, notes) => {
 
 // == Fim - CRUD Read ==========================================
 // =============================================================
+
+// =============================================================
+// ================= Atualização das notas =====================
+
+ api.mainReload((args) => {
+    location.reload()
+ })
+
+// =============== Fim atualização das notas ===================
