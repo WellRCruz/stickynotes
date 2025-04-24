@@ -13,11 +13,10 @@ const { app, BrowserWindow, nativeTheme, Menu, shell, ipcMain } = require('elect
 const path = require('node:path')
 
 // Importação dos métodos conectar e desconectar (módulo de conexão)
-const { conectar, desconectar } = require('./database.js') 
+const { conectar, desconectar } = require('./database.js')
 
 // Importação do modelo de dados (Notes.js)
 const noteModel = require('./src/models/Notes.js')
-const { networkInterfaces } = require('node:os')
 
 // Janela principal
 let win
@@ -76,7 +75,7 @@ function aboutWindow() {
     //validação (se existir a janela e ela não estiver sido destruída, fechar)
     if (about && !about.isDestroyed()) {
       about.close()
-    }   
+    }
   })
 }
 
@@ -92,8 +91,8 @@ function noteWindow() {
       width: 400,
       height: 270,
       autoHideMenuBar: true,
-      //resizable: false,
-      //minimizable: false,
+      resizable: false,
+      minimizable: false,
       // estabelecer uma relação hierárquica entre janelas
       parent: mainWindow,
       // criar uma janela modal (só retorna a principal quando encerrada)
@@ -104,7 +103,7 @@ function noteWindow() {
     })
   }
 
-  note.loadFile('./src/views/nota.html')  
+  note.loadFile('./src/views/nota.html')
 }
 
 // inicialização da aplicação (assíncronismo)
@@ -204,7 +203,7 @@ const template = [
     submenu: [
       {
         label: 'Repositório',
-        click: () => shell.openExternal('https://github.com/WellRCruz/Projeto-Parte-1.git')
+        click: () => shell.openExternal('https://github.com/WellRCruz/stickynotes')
       },
       {
         label: 'Sobre',
@@ -214,22 +213,52 @@ const template = [
   }
 ]
 
-// ===============================================
-// ================ CRUD CREATE ==================
+// =================================================
+// == CRUD Create ==================================
 
 // Recebimento do objeto que contem os dados da nota
 ipcMain.on('create-note', async (event, stickyNote) => {
-  // IMPORTANTE ! Teste de recebimento do objeto - Passo 2
+  //IMPORTANTE! Teste de recebimento do objeto - Passo 2
   console.log(stickyNote)
-  // Criar uma nova estrutra de dados para salvar no banco
-  // Atenção! Os atributos da estrutura precisam ser idênticos ao modelo e os valores são obtidos através do objeto stickyNote
-  const newNote = noteModel ({
-    texto: stickyNote.textNote,
-    cor: stickyNote.colorNote
-  })
-  // Salvar a nota no banco de dados (Passo 3: fluxo)
-  newNote.save()
+  //uso do try-catch para tratamento de excessões
+  try {
+    //Criar uma nova estrutura de dados para salvar no banco
+    //Atenção! Os atributos da estrutura precisam ser idênticos ao modelo e os valores são obtidos através do objeto stickNote
+    const newNote = noteModel({
+      texto: stickyNote.textNote,
+      cor: stickyNote.colorNote
+    })
+    // Salvar a nota no banco de dados (Passo 3: fluxo)
+    newNote.save()
+    // Enviar ao renderizador um pedido para limpar os campos e setar o formulário com os padrões originais (foco no texto), usando o preload.js
+    event.reply('reset-form')
+  } catch (error) {
+    console.log(error)
+  }
 })
 
-// ============== FIM CRUD CREATE ================
-// ===============================================
+// == Fim - CRUD Create ============================
+// =================================================
+
+
+// =================================================
+// == CRUD Read ====================================
+
+// Passo 2: Receber do renderer o pedido para listar as notas e fazer a busca no banco de dados
+ipcMain.on('list-notes', async (event) => {
+  //console.log("teste IPC [list-notes]")
+  try {
+    // Passo 3: obter do banco a listagem de notas cadastradas
+    const notes = await noteModel.find()
+    console.log(notes) // teste do passo 3
+    // Passo 4: enviar ao renderer a listagem das notas
+    // obs: IPC (string) | banco (JSON) (é necessário uma conversão usando JSON.stringify())
+    // event.reply() resposta a solicitação (específica do solicitante)
+    event.reply('render-notes', JSON.stringify(notes))
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+// == Fim - CRUD Read ==============================
+// =================================================

@@ -9,18 +9,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WellRCruz/Projeto-Parte-1.git"
+    "url": "git+https://github.com/WellRCruz/stickynotes.git"
   },
   "author": "Wellington R. Cruz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/WellRCruz/Projeto-Parte-1/issues"
+    "url": "https://github.com/WellRCruz/stickynotes/issues"
   },
-  "homepage": "https://github.com/WellRCruz/Projeto-Parte-1#readme",
+  "homepage": "https://github.com/WellRCruz/stickynotes#readme",
   "devDependencies": {
     "electron": "^34.3.0"
   },
   "dependencies": {
-    "mongoose": "^8.12.2"
+    "mongoose": "^8.13.1"
   }
 }
