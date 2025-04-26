@@ -39,11 +39,12 @@ api.dbStatus((event, message) => {
     }
 })
 
-// Enviar ao main um pedido para conectar com o banco de dados, quando a janela principal for inicializada
-api.dbConect()
+// enviar ao main um pedido para conectar com o banco de dados quando a janela principal for inicializada
+api.dbConnect()
+
 
 // =============================================================
-// ====================== CRUD Read ============================
+// == CRUD Read ================================================
 
 // Passo 1: Enviar ao main um pedido para listar as notas
 api.listNotes()
@@ -61,6 +62,7 @@ api.renderNotes((event, notes) => {
         list.innerHTML += `
             <br>
             <li>
+                <p onclick="deleteNote('${n._id}')" id="x">X</p>
                 <p>${n._id}</p>
                 <p>${n.texto}</p>
                 <p>${n.cor}</p>
@@ -72,11 +74,25 @@ api.renderNotes((event, notes) => {
 // == Fim - CRUD Read ==========================================
 // =============================================================
 
+
 // =============================================================
-// ================= Atualização das notas =====================
+// Atualização das notas =======================================
 
- api.mainReload((args) => {
+api.mainReload((args) => {
     location.reload()
- })
+})
 
-// =============== Fim atualização das notas ===================
+// Fim - atualização das notas =================================
+// =============================================================
+
+
+// =============================================================
+// == CRUD Delete ==============================================
+
+function deleteNote(id) {
+    console.log(id) // Passo 1: receber o id da nota a ser excluída
+    api.deleteNote(id) // Passo 2: enviar o id da nota ao main
+}
+
+//== Fim - CRUD Delete =========================================
+// =============================================================

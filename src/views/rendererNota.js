@@ -17,11 +17,8 @@ let frmNote = document.getElementById('frmNote')
 let note = document.getElementById('inputNote')
 let color = document.getElementById('selectColor')
 
-// Associar o Enter ao Salvar;
-
-
 // =================================================
-// ================= CRUD Create ===================
+// == CRUD Create ==================================
 
 // Evento relacionado ao botão submit
 frmNote.addEventListener('submit', (event) => {
@@ -46,9 +43,9 @@ frmNote.addEventListener('submit', (event) => {
 // == Resetar o formulário =========================
 
 api.resetForm((args) => {
-    // recarregar a página notas 
+    // recarregar a página notas
     location.reload()
-    // recarregar a página principal (atualizar as notas)
+    // recarregar a página principal(atualizar notas)
     api.updateList()
 })
 
